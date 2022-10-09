@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import { ThemeProvider } from 'styled-components';
 import theme from 'constants/theme';
 
+import CONFIGS from "constants/configs";
+import {hasCookie} from "utils/cookieUtils";
 import {
   Intro,
   Login,
@@ -12,25 +14,24 @@ import {
 } from 'components/Views';
 import GlobalStyles from 'components/styles';
 
+import { AppContextProvider } from './context';
+import { StepsEnum } from './types';
 import { StyledAppWrapper } from './styles';
 
 interface AppPropTypes {
   className?: string;
 }
 
-enum StepsEnum {
-  INTRO = 'INTRO',
-  LOGIN = 'LOGIN',
-  PREPARE = 'PREPARE',
-  KILL_SWITCH = 'KILL_SWITCH',
-  OUTRO = 'OUTRO',
-  FREEZ = 'FREEZ',
-}
-
-const App: React.JSXElementConstructor<AppPropTypes> = ({
+const App: React.FC<AppPropTypes> = ({
   className,
 }: AppPropTypes) => {
-  const step = StepsEnum.INTRO;
+  useLayoutEffect(() => {
+    if(hasCookie(CONFIGS.TOKEN_COOKIE_NAME)){
+      setStep(StepsEnum.PREPARE);
+    }
+  }, []);
+
+  const [step, setStep] = useState(StepsEnum.INTRO);
   const stepper = {
     [StepsEnum.INTRO]: () => Intro,
     [StepsEnum.LOGIN]: () => Login,
@@ -45,7 +46,9 @@ const App: React.JSXElementConstructor<AppPropTypes> = ({
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <StyledAppWrapper className={className}>
-        <Component />
+        <AppContextProvider value={{ step, setStep }}>
+          <Component />
+        </AppContextProvider>
       </StyledAppWrapper>
     </ThemeProvider>
   );

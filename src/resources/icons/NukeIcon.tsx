@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconProps } from './IconProps';
 
-const NukeIcon: React.JSXElementConstructor<IconProps> = (
+const NukeIcon: React.FC<IconProps> = (
   props: IconProps,
 ) => (
   <svg

@@ -5,7 +5,7 @@ export interface ViewWrapperProps {
   className?: string;
   children: any,
 }
-const ViewWrapper: React.JSXElementConstructor<ViewWrapperProps> = (
+const ViewWrapper: React.FC<ViewWrapperProps> = (
   props: ViewWrapperProps,
 ) => <StyledViewWrapper {...props} />;
 

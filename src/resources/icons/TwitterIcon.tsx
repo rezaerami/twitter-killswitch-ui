@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconProps } from './IconProps';
 
-const TwitterIcon: React.JSXElementConstructor<IconProps> = (
+const TwitterIcon: React.FC<IconProps> = (
   props: IconProps,
 ) => (
   <svg

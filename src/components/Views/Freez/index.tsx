@@ -7,7 +7,7 @@ import { StyledFreezWrapper, StyledTitle } from './styles';
 export interface OutroProps {
   className?: string;
 }
-const Outro: React.JSXElementConstructor<OutroProps> = ({
+const Outro: React.FC<OutroProps> = ({
   className,
 }: OutroProps) => (
   <StyledFreezWrapper className={className}>

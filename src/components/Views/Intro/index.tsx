@@ -1,23 +1,26 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import MESSAGES from 'constants/messages';
 import NukeIcon from 'resources/icons/NukeIcon';
+import { AppContext } from 'components/App/context';
 
 import {
-  StyledIntroWrapper,
+  StyledDescription,
   StyledIntroButton,
   StyledIntroButtonWrapper,
-  StyledDescription,
+  StyledIntroWrapper,
   StyledNextButton,
   StyledStartButton,
 } from './styles';
+import { StepsEnum } from '../../App/types';
 
 export interface IntroProps {
   className?: string;
 }
-const Intro: React.JSXElementConstructor<IntroProps> = ({
+const Intro: React.FC<IntroProps> = ({
   className,
 }: IntroProps) => {
+  const { setStep: setViewStep } = useContext(AppContext);
   const [step, setStep] = useState(0);
   const slides: string[] = [
     MESSAGES.INTRO_ATTENTION,
@@ -49,7 +52,11 @@ const Intro: React.JSXElementConstructor<IntroProps> = ({
           {MESSAGES.NEXT}
         </StyledNextButton>
       )}
-      {isLastSlide && <StyledStartButton>{MESSAGES.START}</StyledStartButton>}
+      {isLastSlide && (
+        <StyledStartButton onClick={() => setViewStep(StepsEnum.LOGIN)}>
+          {MESSAGES.START}
+        </StyledStartButton>
+      )}
     </StyledIntroWrapper>
   );
 };

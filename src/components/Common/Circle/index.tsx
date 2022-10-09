@@ -4,9 +4,9 @@ import { StyledCircle } from './styles';
 export interface CircleProps {
   className?: string;
   size: number | string;
-  children: any,
+  children?: any;
 }
-const Circle: React.JSXElementConstructor<CircleProps> = (
+const Circle: React.FC<CircleProps> = (
   props: CircleProps,
 ) => <StyledCircle {...props} />;
 

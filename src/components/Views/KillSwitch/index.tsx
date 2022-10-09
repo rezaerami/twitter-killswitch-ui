@@ -13,7 +13,7 @@ import {
 export interface KillSwitchProps {
   className?: string;
 }
-const KillSwitch: React.JSXElementConstructor<KillSwitchProps> = ({
+const KillSwitch: React.FC<KillSwitchProps> = ({
   className,
 }: KillSwitchProps) => (
   <StyledKillSwitchWrapper className={className}>

@@ -5,7 +5,7 @@ export interface TitleProps {
   className?: string;
   children: any,
 }
-const Title: React.JSXElementConstructor<TitleProps> = (
+const Title: React.FC<TitleProps> = (
   props: TitleProps,
 ) => <StyledTitle {...props} />;
 

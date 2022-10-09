@@ -10,7 +10,7 @@ import {
 export interface OutroProps {
   className?: string;
 }
-const Outro: React.JSXElementConstructor<OutroProps> = ({
+const Outro: React.FC<OutroProps> = ({
   className,
 }: OutroProps) => (
   <StyledOutroWrapper className={className}>

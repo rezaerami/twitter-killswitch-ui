@@ -7,7 +7,7 @@ interface ThemeType {
 const theme: ThemeType = {
   direction: 'ltr',
   defaultRem: '1rem',
-  defaultFont: 'Arial',
+  defaultFont: 'Open Sans',
 };
 
 export default theme;

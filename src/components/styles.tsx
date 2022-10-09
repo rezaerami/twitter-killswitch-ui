@@ -1,5 +1,6 @@
 import { css, createGlobalStyle } from 'styled-components';
 import 'sanitize.css';
+import 'resources/css/opensans.css';
 
 const additional = css`
   :root {
@@ -30,6 +31,17 @@ const additional = css`
     }
     100% {
       opacity: 1;
+    }
+  }
+  
+  @keyframes signal {
+    0% {
+      opacity: 1;
+      transform: scale(0.3);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1);
     }
   }
 `;

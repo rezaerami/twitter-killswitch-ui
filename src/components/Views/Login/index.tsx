@@ -14,7 +14,7 @@ import {
 export interface LoginProps {
   className?: string;
 }
-const Login: React.JSXElementConstructor<LoginProps> = ({
+const Login: React.FC<LoginProps> = ({
   className,
 }: LoginProps) => (
   <StyledLoginWrapper className={className}>

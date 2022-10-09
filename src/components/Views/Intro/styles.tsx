@@ -3,7 +3,7 @@ import ViewWrapper from 'components/Common/ViewWrapper';
 import Circle from 'components/Common/Circle';
 
 export const StyledIntroWrapper = styled(ViewWrapper)`
-  background-color: var(--white);
+  background-color: var(--black);
 `;
 
 export const StyledIntroButtonWrapper = styled(Circle)`
@@ -17,7 +17,7 @@ export const StyledIntroButton = styled.span`
 `;
 
 export const StyledDescription = styled.p`
-  color: var(--black);
+  color: var(--white);
   font-size: 1.8rem;
   margin-top: 4rem;
   display: none;
@@ -35,11 +35,13 @@ export const StyledNextButton = styled.button`
   padding: 1.8rem;
   margin-top: 2rem;
   outline: none;
-  color: var(--twitter);
+  color: var(--white);
   border: solid 0.1rem;
   width: 18rem;
   border-radius: 4.8rem;
   cursor: pointer;
 `;
 
-export const StyledStartButton = styled(StyledNextButton)``;
+export const StyledStartButton = styled(StyledNextButton)`
+  color: var(--twitter);
+`;

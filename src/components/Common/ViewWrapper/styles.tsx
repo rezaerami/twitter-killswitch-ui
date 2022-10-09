@@ -9,4 +9,5 @@ export const StyledViewWrapper = styled.div`
   text-align: center;
   flex-direction: column;
   padding: 2.4rem;
+  animation: fade-in 3000ms;
 `;
