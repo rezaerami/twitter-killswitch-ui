@@ -15,6 +15,8 @@ const additional = css`
     direction: ${(props) => props.theme.direction};
     font-size: 62.5%;
     font-family: ${(props) => props.theme.defaultFont};
+    overflow-y: auto;
+    overflow-x: hidden;
     * {
       font-family: inherit;
       outline: none;
@@ -33,6 +35,15 @@ const additional = css`
       opacity: 1;
     }
   }
+
+  @keyframes fade-out {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
   
   @keyframes signal {
     0% {
@@ -42,6 +53,24 @@ const additional = css`
     100% {
       opacity: 0;
       transform: scale(1);
+    }
+  }
+  
+  @keyframes fill {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+  
+  @keyframes shake {
+    0% {
+      transform: translateX(-2%);
+    }
+    100% {
+      transform: translateX(2%);
     }
   }
 `;

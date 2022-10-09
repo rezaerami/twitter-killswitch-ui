@@ -26,9 +26,10 @@ const MESSAGES = {
   FOR_WOMEN: 'For Woman',
   FOR_LIFE: 'For Life',
   FOR_LIBERTY: 'For Liberty',
-  STAY_SAFE: 'Stay Safe :)',
+  STAY_SAFE: 'Operation Completed, Stay Safe :)',
   NEXT: 'Next',
   START: 'Start',
+  CANCEL: 'CANCEL',
 };
 
 export default MESSAGES;

@@ -4,6 +4,8 @@ import { StepsEnum } from '../types';
 export interface AppContextInterface {
   step: string;
   setStep: (step: StepsEnum) => void;
+  setFreeze: (freeze: boolean) => void;
+  setCompleted: (completed: boolean) => void;
 }
 
 const AppContext = createContext({} as AppContextInterface);

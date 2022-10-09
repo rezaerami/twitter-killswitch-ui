@@ -4,5 +4,5 @@ export enum StepsEnum {
   PREPARE = 'PREPARE',
   KILL_SWITCH = 'KILL_SWITCH',
   OUTRO = 'OUTRO',
-  FREEZ = 'FREEZ',
+  FREEZE = 'FREEZE',
 }

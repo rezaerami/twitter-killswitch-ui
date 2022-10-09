@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import ViewWrapper from 'components/Common/ViewWrapper';
 import Circle from 'components/Common/Circle';
+import Button from 'components/Common/Button';
 
 export const StyledIntroWrapper = styled(ViewWrapper)`
   background-color: var(--black);
@@ -30,18 +31,8 @@ export const StyledDescription = styled.p`
   }
 `;
 
-export const StyledNextButton = styled.button`
-  background: none;
-  padding: 1.8rem;
-  margin-top: 2rem;
-  outline: none;
-  color: var(--white);
-  border: solid 0.1rem;
-  width: 18rem;
-  border-radius: 4.8rem;
-  cursor: pointer;
-`;
+export const StyledNextButton = styled(Button)``;
 
-export const StyledStartButton = styled(StyledNextButton)`
+export const StyledStartButton = styled(Button)`
   color: var(--twitter);
 `;

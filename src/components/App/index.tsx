@@ -1,16 +1,16 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import theme from 'constants/theme';
 
-import CONFIGS from "constants/configs";
-import {hasCookie} from "utils/cookieUtils";
+import CONFIGS from 'constants/configs';
+import { hasCookie } from 'utils/cookieUtils';
 import {
+  Freeze,
   Intro,
-  Login,
-  PrepareAccount,
   KillSwitch,
+  Login,
   Outro,
-  Freez,
+  PrepareAccount,
 } from 'components/Views';
 import GlobalStyles from 'components/styles';
 
@@ -22,31 +22,74 @@ interface AppPropTypes {
   className?: string;
 }
 
-const App: React.FC<AppPropTypes> = ({
-  className,
-}: AppPropTypes) => {
+const App: React.FC<AppPropTypes> = ({ className }: AppPropTypes) => {
+  const [step, setStep] = useState(StepsEnum.INTRO);
+  const [freeze, setFreeze] = useState(false);
+  const [completed, setCompleted] = useState(
+    hasCookie(CONFIGS.OPERATION_COMPLETED_COOKIE_NAME),
+  );
+
   useLayoutEffect(() => {
-    if(hasCookie(CONFIGS.TOKEN_COOKIE_NAME)){
-      setStep(StepsEnum.PREPARE);
+    let currentStep = StepsEnum.INTRO;
+
+    if (completed) {
+      currentStep = StepsEnum.FREEZE;
     }
+    if (hasCookie(CONFIGS.TOKEN_COOKIE_NAME)) {
+      currentStep = StepsEnum.PREPARE;
+    }
+    if (hasCookie(CONFIGS.OPERATION_IS_READY_COOKIE_NAME)) {
+      currentStep = StepsEnum.KILL_SWITCH;
+    }
+
+    setStep(currentStep);
+  }, [setStep]);
+
+  /**
+   * opens debugger if someone attempted to open inspect element and developer console
+   */
+  useEffect(() => {
+    window.addEventListener('blur', handleFreeze);
+    window.addEventListener('focus', handleFreeze);
+
+    return () => {
+      window.removeEventListener('blur', handleFreeze);
+      window.removeEventListener('focus', handleFreeze);
+    };
   }, []);
 
-  const [step, setStep] = useState(StepsEnum.INTRO);
+  useEffect(() => {
+    if (freeze) {
+      handleFreeze();
+    }
+  }, [freeze]);
+
   const stepper = {
     [StepsEnum.INTRO]: () => Intro,
     [StepsEnum.LOGIN]: () => Login,
     [StepsEnum.PREPARE]: () => PrepareAccount,
     [StepsEnum.KILL_SWITCH]: () => KillSwitch,
     [StepsEnum.OUTRO]: () => Outro,
-    [StepsEnum.FREEZ]: () => Freez,
+    [StepsEnum.FREEZE]: () => Freeze,
   };
   const Component = stepper?.[step]?.() ?? Login; // @todo default should be intro
+
+  /**
+   * creates an infinite loop to crash the browser so,
+   * no one can see what is inside localstorage and cookie storage
+   */
+  const handleFreeze = (): void => {
+    // while (true) {
+    // eslint-disable-next-line no-debugger
+    // debugger;
+    // }
+  };
 
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <StyledAppWrapper className={className}>
-        <AppContextProvider value={{ step, setStep }}>
+        <AppContextProvider value={{ step, setStep, setFreeze, setCompleted }}>
           <Component />
         </AppContextProvider>
       </StyledAppWrapper>

@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react';
 import MESSAGES from 'constants/messages';
 import NukeIcon from 'resources/icons/NukeIcon';
 import { AppContext } from 'components/App/context';
+import { StepsEnum } from 'components/App/types';
 
 import {
   StyledDescription,
@@ -12,7 +13,6 @@ import {
   StyledNextButton,
   StyledStartButton,
 } from './styles';
-import { StepsEnum } from '../../App/types';
 
 export interface IntroProps {
   className?: string;
