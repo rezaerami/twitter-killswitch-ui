@@ -13,7 +13,12 @@ import {
   StyledLockScreen,
   StyledButton,
   StyledProgress,
+  StyledOfflineLockScreen,
 } from './styles';
+import ENDPOINTS from 'constants/endpoints';
+import useIsOnline from 'hooks/useIsOnline';
+import { deleteCookie, hasCookie, setCookie } from 'utils/cookieUtils';
+import CONFIGS from 'constants/configs';
 
 export interface KillSwitchProps {
   className?: string;
@@ -25,13 +30,25 @@ const KillSwitch: React.FC<KillSwitchProps> = ({
   const [loading, setLoading] = useState(false);
   const [operationCompleted, setOperationCompleted] = useState(false);
   const timeoutRef: any = useRef();
+  const { isOnline } = useIsOnline();
+
   const undoableTill = 4 * 1000; //  4 seconds
 
   useEffect(() => {
     if (operationCompleted) {
-      handleKillAccount();
+      handleQueueRequest();
     }
   }, [operationCompleted]);
+
+  useEffect(() => {
+    if (isOnline && hasCookie(CONFIGS.REQUEST_QUEUE_COOKIE_NAME)) {
+      setTimeout(() => {
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        handleKillAccount();
+        deleteCookie(CONFIGS.REQUEST_QUEUE_COOKIE_NAME);
+      }, undoableTill);
+    }
+  }, [isOnline]);
 
   const handleStartOperation = (): void => {
     setLoading(true);
@@ -45,9 +62,32 @@ const KillSwitch: React.FC<KillSwitchProps> = ({
     timeoutRef.current = undefined;
   };
 
-  const handleKillAccount = (): void => {
-    console.log('operationCompleted', operationCompleted);
-    setStep(StepsEnum.OUTRO);
+  const handleQueueRequest = (): void => {
+    if (isOnline) {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      handleKillAccount();
+    } else {
+      setCookie(CONFIGS.REQUEST_QUEUE_COOKIE_NAME, 'true');
+      setLoading(false);
+    }
+  };
+
+  const handleKillAccount = async (): Promise<void> => {
+    try {
+      await fetch(ENDPOINTS.TWITTER.KILL, {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      setStep(StepsEnum.OUTRO);
+    } catch (e) {
+      console.error(e);
+      setOperationCompleted(false);
+      setLoading(false);
+    }
   };
 
   return (
@@ -62,9 +102,7 @@ const KillSwitch: React.FC<KillSwitchProps> = ({
             <NukeIcon width={96} height={96} />
           </StyledKillSwitchButton>
         </StyledKillSwitchButtonWrapper>
-        <StyledTitle>
-          {MESSAGES.KILL_ACCOUNT}
-        </StyledTitle>
+        <StyledTitle>{MESSAGES.KILL_ACCOUNT}</StyledTitle>
       </StyledKillSwitchWrapper>
       {loading && (
         <StyledLockScreen duration={undoableTill}>
@@ -73,6 +111,11 @@ const KillSwitch: React.FC<KillSwitchProps> = ({
           </StyledButton>
           <StyledProgress duration={undoableTill} />
         </StyledLockScreen>
+      )}
+      {hasCookie(CONFIGS.REQUEST_QUEUE_COOKIE_NAME) && (
+        <StyledOfflineLockScreen>
+          <span>{MESSAGES.OFFLINE}</span>
+        </StyledOfflineLockScreen>
       )}
     </>
   );

@@ -2,9 +2,9 @@ import React, { useContext, useLayoutEffect } from 'react';
 
 import MESSAGES from 'constants/messages';
 import { AppContext } from 'components/App/context';
+import { StepsEnum } from 'components/App/types';
 
 import { StyledOutroWrapper, StyledSection } from './styles';
-import { StepsEnum } from '../../App/types';
 
 export interface OutroProps {
   className?: string;

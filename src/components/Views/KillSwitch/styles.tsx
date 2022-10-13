@@ -54,3 +54,11 @@ export const StyledButton = styled(Button)`
 export const StyledProgress = styled(Progress)`
   width: 30rem !important;
 `;
+
+export const StyledOfflineLockScreen = styled(StyledLockScreen)`
+  background-color: rgba(0, 0, 0, 0.9);
+  color: var(--white);
+  font-size: 2rem;
+  padding: 4.8rem;
+  text-align: center;
+`

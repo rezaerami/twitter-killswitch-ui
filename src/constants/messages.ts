@@ -30,6 +30,8 @@ const MESSAGES = {
   NEXT: 'Next',
   START: 'Start',
   CANCEL: 'CANCEL',
+  OFFLINE:
+    'You are OFFLINE, We have queued your request, and will process it as soon as you get ONLINE',
 };
 
 export default MESSAGES;
