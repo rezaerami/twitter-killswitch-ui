@@ -28,7 +28,7 @@ const Login: React.FC<PrepareAccount> = ({ className }: PrepareAccount) => {
     }
     setTimeout(() => {
       setStep(StepsEnum.KILL_SWITCH);
-    }, 1500);
+    }, 5000);
   }, [setStep]);
 
   return (
