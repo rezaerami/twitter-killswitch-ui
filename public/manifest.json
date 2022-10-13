@@ -3,7 +3,7 @@
   "name": "Twitter Kill Switch is a security app that allows you to remove all your tweets at once in case of emergency!",
   "icons": [
     {
-      "src": "/android-chrome-144x144.png",
+      "src": "android-chrome-144x144.png",
       "sizes": "144x144",
       "type": "image/png"
     },
