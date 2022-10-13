@@ -79,10 +79,10 @@ const App: React.FC<AppPropTypes> = ({ className }: AppPropTypes) => {
    * no one can see what is inside localstorage and cookie storage
    */
   const handleFreeze = (): void => {
-    // while (true) {
+    while (true) {
     // eslint-disable-next-line no-debugger
-    // debugger;
-    // }
+      debugger;
+    }
   };
 
   return (
