@@ -1,24 +1,25 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
+import axios from 'axios';
 
 import NukeIcon from 'resources/icons/NukeIcon';
 import MESSAGES from 'constants/messages';
-import { AppContext } from 'components/App/context';
-import { StepsEnum } from 'components/App/types';
+import ENDPOINTS from 'constants/endpoints';
+import useIsOnline from 'hooks/useIsOnline';
+import {deleteCookie, hasCookie, setCookie} from 'utils/cookieUtils';
+import CONFIGS from 'constants/configs';
+import {AppContext} from 'components/App/context';
+import {StepsEnum} from 'components/App/types';
 
 import {
+  StyledButton,
   StyledKillSwitchButton,
   StyledKillSwitchButtonWrapper,
   StyledKillSwitchWrapper,
-  StyledTitle,
   StyledLockScreen,
-  StyledButton,
-  StyledProgress,
   StyledOfflineLockScreen,
+  StyledProgress,
+  StyledTitle,
 } from './styles';
-import ENDPOINTS from 'constants/endpoints';
-import useIsOnline from 'hooks/useIsOnline';
-import { deleteCookie, hasCookie, setCookie } from 'utils/cookieUtils';
-import CONFIGS from 'constants/configs';
 
 export interface KillSwitchProps {
   className?: string;
@@ -29,10 +30,17 @@ const KillSwitch: React.FC<KillSwitchProps> = ({
   const { setStep } = useContext(AppContext);
   const [loading, setLoading] = useState(false);
   const [operationCompleted, setOperationCompleted] = useState(false);
+  const [error, setError] = useState(false);
   const timeoutRef: any = useRef();
   const { isOnline } = useIsOnline();
 
   const undoableTill = 4 * 1000; //  4 seconds
+
+  useEffect(() => {
+    if(!hasCookie(CONFIGS.TOKEN_COOKIE_NAME)){
+      setStep(StepsEnum.LOGIN);
+    }
+  }, []);
 
   useEffect(() => {
     if (operationCompleted) {
@@ -74,19 +82,18 @@ const KillSwitch: React.FC<KillSwitchProps> = ({
 
   const handleKillAccount = async (): Promise<void> => {
     try {
-      await fetch(ENDPOINTS.TWITTER.KILL, {
+      await axios(ENDPOINTS.TWITTER.KILL, {
         method: 'GET',
-        mode: 'cors',
-        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
+        withCredentials: true,
       });
       setStep(StepsEnum.OUTRO);
     } catch (e) {
-      console.error(e);
       setOperationCompleted(false);
       setLoading(false);
+      setError(true);
     }
   };
 
@@ -115,6 +122,14 @@ const KillSwitch: React.FC<KillSwitchProps> = ({
       {hasCookie(CONFIGS.REQUEST_QUEUE_COOKIE_NAME) && (
         <StyledOfflineLockScreen>
           <span>{MESSAGES.OFFLINE}</span>
+        </StyledOfflineLockScreen>
+      )}
+      {error && (
+        <StyledOfflineLockScreen>
+          <span>{MESSAGES.KILL_ERROR}</span>
+          <a href={ENDPOINTS.TWITTER.LOGIN}>
+            <StyledButton>{MESSAGES.LOGIN_VIA_TWITTER}</StyledButton>
+          </a>
         </StyledOfflineLockScreen>
       )}
     </>

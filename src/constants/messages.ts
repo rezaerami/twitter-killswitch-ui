@@ -30,6 +30,7 @@ const MESSAGES = {
   NEXT: 'Next',
   START: 'Start',
   CANCEL: 'CANCEL',
+  KILL_ERROR: 'There was an error while killing your account, login again',
   OFFLINE:
     'You are OFFLINE, We have queued your request, and will process it as soon as you get ONLINE',
 };

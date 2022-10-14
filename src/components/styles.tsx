@@ -44,7 +44,7 @@ const additional = css`
       opacity: 0;
     }
   }
-  
+
   @keyframes signal {
     0% {
       opacity: 1;
@@ -55,7 +55,7 @@ const additional = css`
       transform: scale(1);
     }
   }
-  
+
   @keyframes fill {
     0% {
       width: 0;
@@ -64,7 +64,7 @@ const additional = css`
       width: 100%;
     }
   }
-  
+
   @keyframes shake {
     0% {
       transform: translateX(-2%);
