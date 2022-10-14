@@ -25,14 +25,11 @@ interface AppPropTypes {
 const App: React.FC<AppPropTypes> = ({ className }: AppPropTypes) => {
   const [step, setStep] = useState(StepsEnum.INTRO);
   const [freeze, setFreeze] = useState(false);
-  const [completed, setCompleted] = useState(
-    hasCookie(CONFIGS.OPERATION_COMPLETED_COOKIE_NAME),
-  );
 
   useLayoutEffect(() => {
     let currentStep = StepsEnum.INTRO;
 
-    if (completed) {
+    if (hasCookie(CONFIGS.OPERATION_COMPLETED_COOKIE_NAME)) {
       currentStep = StepsEnum.FREEZE;
     }
     if (hasCookie(CONFIGS.TOKEN_COOKIE_NAME)) {
@@ -79,8 +76,8 @@ const App: React.FC<AppPropTypes> = ({ className }: AppPropTypes) => {
    * no one can see what is inside localstorage and cookie storage
    */
   const handleFreeze = (): void => {
-    console.log(process.env.NODE_ENV)
-    if(process.env.REACT_APP_DEBUG !== "true") {
+    console.log(process.env.NODE_ENV);
+    if (process.env.REACT_APP_DEBUG !== 'true') {
       while (true) {
         // eslint-disable-next-line no-debugger
         debugger;
@@ -92,7 +89,7 @@ const App: React.FC<AppPropTypes> = ({ className }: AppPropTypes) => {
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <StyledAppWrapper className={className}>
-        <AppContextProvider value={{ step, setStep, setFreeze, setCompleted }}>
+        <AppContextProvider value={{ step, setStep, setFreeze }}>
           <Component />
         </AppContextProvider>
       </StyledAppWrapper>

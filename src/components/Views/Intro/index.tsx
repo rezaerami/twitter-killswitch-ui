@@ -43,7 +43,7 @@ const Intro: React.FC<IntroProps> = ({
         </StyledIntroButton>
       </StyledIntroButtonWrapper>
       {slides.map((item: string, index: number) => (
-        <StyledDescription className={index === step ? 'active' : ''}>
+        <StyledDescription className={index === step ? 'active' : ''} key={index}>
           {item}
         </StyledDescription>
       ))}
