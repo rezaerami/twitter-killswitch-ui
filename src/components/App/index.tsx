@@ -42,19 +42,6 @@ const App: React.FC<AppPropTypes> = ({ className }: AppPropTypes) => {
     setStep(currentStep);
   }, [setStep]);
 
-  /**
-   * opens debugger if someone attempted to open inspect element and developer console
-   */
-  useEffect(() => {
-    window.addEventListener('blur', handleFreeze);
-    window.addEventListener('focus', handleFreeze);
-
-    return () => {
-      window.removeEventListener('blur', handleFreeze);
-      window.removeEventListener('focus', handleFreeze);
-    };
-  }, []);
-
   useEffect(() => {
     if (freeze) {
       handleFreeze();
