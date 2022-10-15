@@ -76,7 +76,6 @@ const App: React.FC<AppPropTypes> = ({ className }: AppPropTypes) => {
    * no one can see what is inside localstorage and cookie storage
    */
   const handleFreeze = (): void => {
-    console.log(process.env.NODE_ENV);
     if (process.env.REACT_APP_DEBUG !== 'true') {
       while (true) {
         // eslint-disable-next-line no-debugger
