@@ -19,7 +19,7 @@ export const StyledIntroButton = styled.span`
   flex-direction: column;
 `;
 
-export const StyledDescription = styled.p`
+export const StyledDescription = styled.div`
   font-size: 1.8rem;
   margin-top: 4rem;
   display: none;
@@ -41,7 +41,7 @@ export const StyledStartButton = styled(StyledNextButton)`
 `;
 
 export const StyledDescriptionsWrapper = styled.ul`
-  text-align: left;
+  text-align: initial;
   margin-bottom: 2rem;
   font-size: 1.4rem;
 `;
@@ -49,7 +49,7 @@ export const StyledDescriptionsWrapper = styled.ul`
 export const StyledDescriptionItem = styled.li``;
 
 export const StyledTechnicalDetailsModal = styled.div`
-  text-align: left;
+  text-align: initial;
   position: fixed;
   height: 100%;
   width: 100%;

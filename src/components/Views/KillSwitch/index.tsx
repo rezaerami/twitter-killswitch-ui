@@ -2,9 +2,9 @@ import React, {useContext, useEffect, useRef, useState} from 'react';
 import axios from 'axios';
 
 import ClearIcon from 'resources/icons/ClearIcon';
-import MESSAGES from 'constants/messages';
 import ENDPOINTS from 'constants/endpoints';
 import useIsOnline from 'hooks/useIsOnline';
+import useTranslate from "hooks/useTranslate";
 import {deleteCookie, hasCookie, setCookie} from 'utils/cookieUtils';
 import CONFIGS from 'constants/configs';
 import {AppContext} from 'components/App/context';
@@ -28,6 +28,8 @@ const KillSwitch: React.FC<KillSwitchProps> = ({
   className = '',
 }: KillSwitchProps) => {
   const { setStep } = useContext(AppContext);
+  const { MESSAGES, translate } = useTranslate();
+
   const [loading, setLoading] = useState(false);
   const [operationCompleted, setOperationCompleted] = useState(false);
   const [error, setError] = useState(false);
@@ -109,26 +111,26 @@ const KillSwitch: React.FC<KillSwitchProps> = ({
             <ClearIcon width={80} height={80} />
           </StyledKillSwitchButton>
         </StyledKillSwitchButtonWrapper>
-        <StyledTitle>{MESSAGES.KILL_ACCOUNT}</StyledTitle>
+        <StyledTitle>{translate(MESSAGES.KILL_ACCOUNT)}</StyledTitle>
       </StyledKillSwitchWrapper>
       {loading && (
         <StyledLockScreen duration={undoableTill}>
           <StyledButton onClick={handleCancelOperation}>
-            {MESSAGES.CANCEL}
+            {translate(MESSAGES.CANCEL)}
           </StyledButton>
           <StyledProgress duration={undoableTill} />
         </StyledLockScreen>
       )}
       {hasCookie(CONFIGS.REQUEST_QUEUE_COOKIE_NAME) && (
         <StyledOfflineLockScreen>
-          <span>{MESSAGES.OFFLINE}</span>
+          <span>{translate(MESSAGES.OFFLINE)}</span>
         </StyledOfflineLockScreen>
       )}
       {error && (
         <StyledOfflineLockScreen>
-          <span>{MESSAGES.KILL_ERROR}</span>
+          <span>{translate(MESSAGES.KILL_ERROR)}</span>
           <a href={ENDPOINTS.TWITTER.LOGIN}>
-            <StyledButton>{MESSAGES.LOGIN_VIA_TWITTER}</StyledButton>
+            <StyledButton>{translate(MESSAGES.LOGIN_VIA_TWITTER)}</StyledButton>
           </a>
         </StyledOfflineLockScreen>
       )}

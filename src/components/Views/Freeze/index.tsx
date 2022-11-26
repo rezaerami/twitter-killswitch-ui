@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 
-import MESSAGES from 'constants/messages';
 import CONFIGS from 'constants/configs';
+import useTranslate from "hooks/useTranslate";
 import { deleteCookie, hasCookie, setCookie } from 'utils/cookieUtils';
 import { AppContext } from 'components/App/context';
 
@@ -12,6 +12,8 @@ export interface OutroProps {
 }
 const Freeze: React.FC<OutroProps> = ({ className }: OutroProps) => {
   const { setFreeze } = useContext(AppContext);
+  const { MESSAGES, translate } = useTranslate();
+
   useEffect(() => {
     setTimeout(() => {
       handleCompleteOperation();
@@ -28,7 +30,7 @@ const Freeze: React.FC<OutroProps> = ({ className }: OutroProps) => {
   return (
     <StyledFreezeWrapper className={className}>
       {!hasCookie(CONFIGS.OPERATION_COMPLETED_COOKIE_NAME) && (
-        <StyledTitle>{MESSAGES.STAY_SAFE}</StyledTitle>
+        <StyledTitle>{translate(MESSAGES.STAY_SAFE)}</StyledTitle>
       )}
     </StyledFreezeWrapper>
   );
