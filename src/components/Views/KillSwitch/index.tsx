@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import axios from 'axios';
 
-import NukeIcon from 'resources/icons/NukeIcon';
+import ClearIcon from 'resources/icons/ClearIcon';
 import MESSAGES from 'constants/messages';
 import ENDPOINTS from 'constants/endpoints';
 import useIsOnline from 'hooks/useIsOnline';
@@ -106,7 +106,7 @@ const KillSwitch: React.FC<KillSwitchProps> = ({
           onClick={handleStartOperation}
         >
           <StyledKillSwitchButton>
-            <NukeIcon width={96} height={96} />
+            <ClearIcon width={80} height={80} />
           </StyledKillSwitchButton>
         </StyledKillSwitchButtonWrapper>
         <StyledTitle>{MESSAGES.KILL_ACCOUNT}</StyledTitle>
