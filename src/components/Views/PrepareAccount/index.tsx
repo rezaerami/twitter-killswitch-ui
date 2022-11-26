@@ -1,9 +1,9 @@
 import React, { useContext, useLayoutEffect } from 'react';
 
 import TwitterIcon from 'resources/icons/TwitterIcon';
-import MESSAGES from 'constants/messages';
 
 import CONFIGS from 'constants/configs';
+import useTranslate from "hooks/useTranslate";
 import { hasCookie, setCookie } from 'utils/cookieUtils';
 import { AppContext } from 'components/App/context';
 import { StepsEnum } from 'components/App/types';
@@ -21,6 +21,7 @@ export interface PrepareAccount {
 }
 const Login: React.FC<PrepareAccount> = ({ className }: PrepareAccount) => {
   const { setStep } = useContext(AppContext);
+  const { MESSAGES, translate } = useTranslate();
 
   useLayoutEffect(() => {
     if (!hasCookie(CONFIGS.OPERATION_IS_READY_COOKIE_NAME)) {
@@ -39,7 +40,7 @@ const Login: React.FC<PrepareAccount> = ({ className }: PrepareAccount) => {
         </StyledButton>
         <StyledSignal size={24} />
       </StyledButtonWrapper>
-      <StyledTitle>{MESSAGES.PREPARE_CREDENTIALS}</StyledTitle>
+      <StyledTitle>{translate(MESSAGES.PREPARE_CREDENTIALS)}</StyledTitle>
     </StyledPrepareAccountWrapper>
   );
 };

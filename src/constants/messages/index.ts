@@ -1,3 +1,2 @@
-import EN from './en';
-
-export default EN;
+export { default as EN } from './en';
+export { default as FA } from './fa';

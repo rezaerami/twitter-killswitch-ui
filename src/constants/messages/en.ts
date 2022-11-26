@@ -1,9 +1,5 @@
-export interface MessagesInterface {
-  [key: string]: string;
-}
-
-const MESSAGES = {
-  SELECT_LANGUAGE: 'Select language',
+export default {
+  CHANGE_LANGUAGE: 'فارسی',
   SOCIAL_CLEANER: 'Social Cleaner',
   LANGUAGE: 'English',
   LOGIN_VIA_TWITTER: 'Login via Twitter',
@@ -53,7 +49,5 @@ const MESSAGES = {
   KILL_ERROR: 'There was an error while cleaning your account, login again',
   OFFLINE:
     'You are OFFLINE, We have queued your request, and will process it as soon as you get ONLINE',
-  TECHNICAL_DETAILS: "Technical Details",
+  TECHNICAL_DETAILS: 'Technical Details',
 };
-
-export default MESSAGES;

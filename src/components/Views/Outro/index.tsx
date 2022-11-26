@@ -1,6 +1,6 @@
 import React, { useContext, useLayoutEffect } from 'react';
 
-import MESSAGES from 'constants/messages';
+import useTranslate from "hooks/useTranslate";
 import { AppContext } from 'components/App/context';
 import { StepsEnum } from 'components/App/types';
 
@@ -11,6 +11,7 @@ export interface OutroProps {
 }
 const Outro: React.FC<OutroProps> = ({ className }: OutroProps) => {
   const { setStep } = useContext(AppContext);
+    const { MESSAGES, translate } = useTranslate();
 
   useLayoutEffect(() => {
     setTimeout(() => setStep(StepsEnum.FREEZE), 5000);
@@ -19,13 +20,13 @@ const Outro: React.FC<OutroProps> = ({ className }: OutroProps) => {
   return (
     <StyledOutroWrapper className={className}>
       <StyledSection>
-        <span>{MESSAGES.FOR_WOMEN}</span>
+        <span>{translate(MESSAGES.FOR_WOMEN)}</span>
       </StyledSection>
       <StyledSection>
-        <span>{MESSAGES.FOR_LIFE}</span>
+        <span>{translate(MESSAGES.FOR_LIFE)}</span>
       </StyledSection>
       <StyledSection>
-        <span>{MESSAGES.FOR_LIBERTY}</span>
+        <span>{translate(MESSAGES.FOR_LIBERTY)}</span>
       </StyledSection>
     </StyledOutroWrapper>
   );

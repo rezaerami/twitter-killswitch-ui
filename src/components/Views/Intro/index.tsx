@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext, useState } from 'react';
 
-import MESSAGES from 'constants/messages';
+import useTranslate, { AvailableLanguages } from 'hooks/useTranslate';
 import ClearIcon from 'resources/icons/ClearIcon';
 import { AppContext } from 'components/App/context';
 import { StepsEnum } from 'components/App/types';
@@ -30,6 +30,8 @@ interface steps {
 }
 const Intro: React.FC<IntroProps> = ({ className }: IntroProps) => {
   const { setStep: setViewStep } = useContext(AppContext);
+  const { MESSAGES, translate, selectedLanguage, setSelectedLanguage } =
+    useTranslate();
   const [step, setStep] = useState(0);
   const [technicalDetailsVisibility, setTechnicalDetailsVisibility] =
     useState(false);
@@ -37,6 +39,19 @@ const Intro: React.FC<IntroProps> = ({ className }: IntroProps) => {
   const slides: steps[] = [
     {
       title: MESSAGES.INTRO_ATTENTION,
+      cta: (
+        <StyledStartButton
+          onClick={() =>
+            setSelectedLanguage(
+              selectedLanguage === AvailableLanguages.FA
+                ? AvailableLanguages.EN
+                : AvailableLanguages.FA,
+            )
+          }
+        >
+          {translate(MESSAGES.CHANGE_LANGUAGE)}
+        </StyledStartButton>
+      ),
     },
     {
       title: MESSAGES.INTRO_DESCRIPTION,
@@ -52,7 +67,7 @@ const Intro: React.FC<IntroProps> = ({ className }: IntroProps) => {
       ],
       cta: (
         <StyledStartButton onClick={() => setTechnicalDetailsVisibility(true)}>
-          {MESSAGES.TECHNICAL_DETAILS}
+          {translate(MESSAGES.TECHNICAL_DETAILS)}
         </StyledStartButton>
       ),
     },
@@ -74,7 +89,9 @@ const Intro: React.FC<IntroProps> = ({ className }: IntroProps) => {
   const renderBulletPoints = (list: string[] = []): ReactElement<any> => (
     <StyledDescriptionsWrapper>
       {list.map((item, index) => (
-        <StyledDescriptionItem key={index}>{item}</StyledDescriptionItem>
+        <StyledDescriptionItem key={index}>
+          {translate(item)}
+        </StyledDescriptionItem>
       ))}
     </StyledDescriptionsWrapper>
   );
@@ -91,19 +108,19 @@ const Intro: React.FC<IntroProps> = ({ className }: IntroProps) => {
           className={index === step ? 'active' : ''}
           key={index}
         >
-          <h3>{title}</h3>
+          <h3>{translate(title)}</h3>
           {!!descriptions?.length && renderBulletPoints(descriptions)}
           {!!cta && cta}
         </StyledDescription>
       ))}
       {!isLastSlide && (
         <StyledNextButton onClick={() => setStep(step + 1)}>
-          {MESSAGES.NEXT}
+          {translate(MESSAGES.NEXT)}
         </StyledNextButton>
       )}
       {isLastSlide && (
         <StyledStartButton onClick={() => setViewStep(StepsEnum.LOGIN)}>
-          {MESSAGES.START}
+          {translate(MESSAGES.START)}
         </StyledStartButton>
       )}
       {technicalDetailsVisibility && (
@@ -114,7 +131,7 @@ const Intro: React.FC<IntroProps> = ({ className }: IntroProps) => {
             <CloseIcon width={32} height={32} />
           </StyledCloseButton>
           <StyledDescription className="active">
-            <h3>{MESSAGES.INTRO_SHOW_TECHNICAL_DETAILS}</h3>
+            <h3>{translate(MESSAGES.INTRO_SHOW_TECHNICAL_DETAILS)}</h3>
             {renderBulletPoints(technicalDescriptions)}
           </StyledDescription>
         </StyledTechnicalDetailsModal>
